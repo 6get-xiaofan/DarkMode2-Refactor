@@ -7,6 +7,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>Assets\darkmode-icon.ico</ApplicationIcon>
+        <!-- AOT编译 -->
+        <PublishAot>true</PublishAot>
+        <PublishTrimmed>false</PublishTrimmed>
+        <!-- 调试环境保留符号 -->
+        <StackTraceSupport>true</StackTraceSupport>
     </PropertyGroup>
 
     <ItemGroup>

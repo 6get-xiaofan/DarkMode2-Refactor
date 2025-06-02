@@ -4,9 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:DarkMode.Ui.Views.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
       mc:Ignorable="d"
       Title="AboutPage" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="关于页"></TextBlock>
-    </Grid>
+    <VirtualizingStackPanel
+        x:Name="RootPanel"
+        IsVirtualizing="True"
+        VirtualizationMode="Recycling">
+        <ui:TextBlock FontTypography="Body" Text="关于页" />
+    </VirtualizingStackPanel>
 </Page>

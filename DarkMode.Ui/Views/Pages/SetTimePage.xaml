@@ -4,9 +4,245 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:DarkMode.Ui.Views.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
       mc:Ignorable="d"
       Title="SetTimePage" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="时间页"></TextBlock>
-    </Grid>
+    <StackPanel x:Name="RootPanel">
+        <ui:InfoBar IsOpen="True" Title="提示" Message="如果软件运行后，你不做出任何改变，则会按照初始状态执行操作！"/>
+        <ui:CardExpander 
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon TimeAndWeather24}"
+            IsEnabled="True"
+            IsExpanded="False" 
+            VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="自定义时间" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="自定义时间介绍" />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="浅色模式"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    
+                        <ComboBox
+                            x:Name="startTimeHours"
+                            Margin="10"
+                            Width="150"
+                            DisplayMemberPath="Value"
+                            SelectedValuePath="Key"/>
+                    
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="时"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center" />
+                    
+                        <ComboBox
+                            x:Name="startTimeMinutes"
+                            Margin="10"
+                            Width="150"
+                            DisplayMemberPath="Value"
+                            SelectedValuePath="Key"/>
+                    
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="分"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center" />
+                        
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="浅色模式"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                    
+                    <ComboBox
+                        x:Name="endTimeHours"
+                        Margin="10"
+                        Width="150"
+                        DisplayMemberPath="Value"
+                        SelectedValuePath="Key"/>
+                    
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="时"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center" />
+                    
+                    <ComboBox
+                        x:Name="endTimeMinutes"
+                        Margin="10"
+                        Width="150"
+                        DisplayMemberPath="Value"
+                        SelectedValuePath="Key"/>
+                    
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="分"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <ui:Button Content="保存" Width="80"></ui:Button>
+                </StackPanel>
+            </StackPanel>
+        </ui:CardExpander>
+        <ui:CardExpander
+            x:Name="SunRiseSwitch"
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon WeatherSunnyHigh24}"
+            IsEnabled="True"
+            IsExpanded="False" 
+            VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="日出日落模式" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="日出日落模式介绍" />
+                    </StackPanel>
+                    <ui:ToggleSwitch
+                        Focusable ="false"
+                        x:Name="SunRiseSet"
+                        Grid.Column="1"
+                        Margin="0,0,16,0"
+                        Padding="30,6"
+                        VerticalAlignment="Center"
+                        />
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid 
+                Width="Auto" 
+                  HorizontalAlignment="Stretch" RenderTransformOrigin="0.456,0.569">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Text="经度" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="10"/>
+
+                <TextBlock
+                    x:Name="lat"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Margin="10" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Text="纬度" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="10"/>
+
+                <TextBlock 
+                    x:Name="lng"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Margin="10" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"
+                    />
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Text="位置" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="10"/>
+
+                <TextBlock 
+                    x:Name="location"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    FontSize="13"
+                    FontWeight="Medium"
+                    Margin="10" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" />
+            </Grid>
+        </ui:CardExpander>
+
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon LightbulbFilament24}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="感光模式" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="感光模式介绍" />
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:ToggleSwitch x:Name="Autostart" Focusable ="false"/>
+        </ui:CardControl>
+    </StackPanel>
 </Page>
