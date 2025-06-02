@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>Assets\darkmode-icon.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+      <PackageReference Include="Lepo.i18n" Version="2.0.0" />
+      <PackageReference Include="Lepo.i18n.DependencyInjection" Version="2.0.0" />
+      <PackageReference Include="Lepo.i18n.Json" Version="2.0.0" />
+      <PackageReference Include="Lepo.i18n.Wpf" Version="2.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="WPF-UI" Version="4.0.2" />
+      <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.2" />
+      <PackageReference Include="WPF-UI.Tray" Version="4.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Views\Windows\MainWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Views\Windows\SettingsWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Translations-en-US.json" />
+      <EmbeddedResource Include="Resources\Translations-en-US.json" />
+      <None Remove="Resources\Translations-zh-CN.json" />
+      <EmbeddedResource Include="Resources\Translations-zh-CN.json" />
+      <None Update="CultureInfos.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\darkmode-icon.ico" />
+      <Resource Include="Assets\darkmode-icon.ico" />
+      <None Remove="Assets\Fonts\Segoe Fluent Icons.ttf" />
+      <None Remove="Assets\Fonts\FluentSystemIcons-Regular.ttf" />
+      <Resource Include="Assets\Fonts\FluentSystemIcons-Regular.ttf" />
+    </ItemGroup>
+
+</Project>

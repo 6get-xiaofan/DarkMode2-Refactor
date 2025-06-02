@@ -1,0 +1,12 @@
+<Page x:Class="DarkMode.Ui.Views.Pages.DeveloperModePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:DarkMode.Ui.Views.Pages"
+      mc:Ignorable="d"
+      Title="DevelperModePage" Height="450" Width="800">
+    <Grid>
+        <TextBlock Text="开发者模式页"></TextBlock> 
+    </Grid>
+</Page>

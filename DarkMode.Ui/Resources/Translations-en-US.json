@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "strings": [
+    {
+      "name": "MainWindow.TooltipText",
+      "value": "DarkMode"
+    },
+    {
+      "name": "MainWindow.Tray.Settings",
+      "value": "Settings"
+    },
+    {
+      "name": "MainWindow.Tray.Exit",
+      "value": "Exit"
+    },
+    {
+      "name": "SettingsWindow.TitleBar.Title",
+      "value": "DarkMode Settings"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem1",
+      "value": "Times"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem2",
+      "value": "Wallpaper"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem3",
+      "value": "Custom"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem4",
+      "value": "Laboratory"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem5",
+      "value": "DevMode"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem6",
+      "value": "About"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem7",
+      "value": "Settings"
+    }
+  ]
+}
