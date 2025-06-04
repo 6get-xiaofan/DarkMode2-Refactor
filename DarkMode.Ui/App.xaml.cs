@@ -1,6 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using DarkMode.Ui.I18n;
-using DarkMode.Ui.Models;
+﻿using DarkMode.Core.Interfaces.Logging;
+using DarkMode.Core.Services.Logging;
 using DarkMode.Ui.Services;
 using DarkMode.Ui.Services.Contracts;
 using DarkMode.Ui.ViewModels.Pages;
@@ -9,7 +8,6 @@ using DarkMode.Ui.Views.Pages;
 using DarkMode.Ui.Views.Windows;
 using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Json;
-using Newtonsoft.Json;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
 
@@ -67,21 +65,32 @@ public partial class App
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-zh-CN.json", new CultureInfo("zh-CN"));
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-en-US.json", new CultureInfo("en-US"));
             });
+            
+            // Logging
+            _ = services.AddSingleton<ILoggerService, LoggerService>();
         }).Build();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         _host.Start();
+        var logger = _host.Services.GetRequiredService<ILoggerService>();
+        logger.Info("UI", "DarkMode.Ui", nameof(App), nameof(App_OnStartup), "DarkMode starting...");
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
     {
-        _host.StopAsync().Wait();
+        var logger = _host.Services.GetRequiredService<ILoggerService>();
 
+        _host.StopAsync().Wait();
+        logger.Info("UI", "DarkMode.Ui", nameof(App), nameof(App_OnStartup), "DarkMode exiting...");
+        
         _host.Dispose();
     }
 
     private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
+        var logger = _host.Services.GetRequiredService<ILoggerService>();
+        logger.Error("UI", "DarkMode.Ui", nameof(App), nameof(App_OnDispatcherUnhandledException), $"Unhandled exception: {e.Exception}");
+        
         e.Handled = true;
     }
 }

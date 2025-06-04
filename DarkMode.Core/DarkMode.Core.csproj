@@ -12,9 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Enums\" />
       <Folder Include="Events\" />
-      <Folder Include="Modules\Logging\" />
+      <Folder Include="Infrastructure\" />
       <Folder Include="Utils\" />
     </ItemGroup>
 
