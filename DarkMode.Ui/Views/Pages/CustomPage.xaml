@@ -7,11 +7,109 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
       mc:Ignorable="d"
-      Title="CustomPage" Height="450" Width="800">
-    <VirtualizingStackPanel
-        x:Name="RootPanel"
-        IsVirtualizing="True"
-        VirtualizationMode="Recycling">
-        <ui:TextBlock FontTypography="Body" Text="自定义页" />
-    </VirtualizingStackPanel>
+      d:DesignHeight="450" d:DesignWidth="800"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Title="CustomPage">
+    <StackPanel x:Name="RootPanel">
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon Cursor24}"
+            IsEnabled="True"
+            IsExpanded="False" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="自定义鼠标指针组" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="你可以分别选择不同颜色模式下的鼠标指针组的样式" />
+                    </StackPanel>
+                    <ui:ToggleSwitch 
+                        x:Name="MouseSwitch" 
+                        Grid.Column="1" 
+                        Focusable ="false" 
+                        Margin="0,0,20,0"/>
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="123*" />
+                    <ColumnDefinition Width="611*" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock 
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="浅色时" Margin="0,0,0,10"/>
+                <ToggleButton 
+                    x:Name="LightMouse_white"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Height="120" 
+                    Width="120"
+                    Margin="0,0,10,0">
+                    <Image 
+                    Source="pack://application:,,,/Assets/Images/MouseLight.png"
+                    Width="100"
+                    Height="100"/>
+                </ToggleButton>
+                <ToggleButton 
+                    x:Name="LightMouse_black"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Height="120" 
+                    Width="120"
+                    Margin="0,0,0,0">
+                    <Image 
+                    Source="pack://application:,,,/Assets/Images/MouseDark.png"
+                    Width="100"
+                    Height="100"/>
+                </ToggleButton>
+                <TextBlock 
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="深色时" Margin="0,0,0,10"/>
+                <ToggleButton 
+                    x:Name="DarkMouse_white"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Height="120" 
+                    Width="120"
+                    Margin="0,0,10,0">
+                    <Image 
+                    Source="pack://application:,,,/Assets/Images/MouseLight.png"
+                    Width="100"
+                    Height="100"/>
+                </ToggleButton>
+                <ToggleButton 
+                    x:Name="DarkMouse_black"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Height="120" 
+                    Width="120">
+                    <Image 
+                    Source="pack://application:,,,/Assets/Images/MouseDark.png"
+                    Width="100"
+                    Height="100"/>
+                </ToggleButton>
+            </Grid>
+        </ui:CardExpander>
+    </StackPanel>
 </Page>

@@ -13,7 +13,6 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
     [
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem1"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem1"].Value,
@@ -25,12 +24,10 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf823",
                 FontSize = 26,
             },
-            TargetPageType = typeof(SetTimePage),
-            TargetPageTag = "时间"
+            TargetPageType = typeof(SetTimePage)
         },
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem2"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem2"].Value,
@@ -42,12 +39,10 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf867",
                 FontSize = 26,
             },
-            TargetPageType = typeof(SetWallpaperPage),
-            TargetPageTag = "壁纸"
+            TargetPageType = typeof(SetWallpaperPage)
         },
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem3"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem3"].Value,
@@ -59,12 +54,10 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\ue8d8",
                 FontSize = 26,
             },
-            TargetPageType = typeof(CustomPage),
-            TargetPageTag = "自定义功能"
+            TargetPageType = typeof(CustomPage)
         },
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem4"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem4"].Value,
@@ -76,8 +69,7 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf83b",
                 FontSize = 26,
             },
-            TargetPageType = typeof(LaboratoryPage),
-            TargetPageTag = "实验室"
+            TargetPageType = typeof(LaboratoryPage)
         },
     ];
     
@@ -86,7 +78,6 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
     [
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem5"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem5"].Value,
@@ -98,12 +89,10 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf2f0",
                 FontSize = 26,
             },
-            TargetPageType = typeof(DeveloperModePage),
-            TargetPageTag = "开发者选项"
+            TargetPageType = typeof(DeveloperModePage)
         },
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem6"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem6"].Value,
@@ -115,12 +104,10 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf4a4",
                 FontSize = 26,
             },
-            TargetPageType = typeof(AboutPage),
-            TargetPageTag = "关于"
+            TargetPageType = typeof(AboutPage)
         },
         new NavigationViewItem()
         {
-            Name = localizer["SettingsWindow.NavigationItem7"].Value,
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem7"].Value,
@@ -132,8 +119,7 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf6aa",
                 FontSize = 26,
             },
-            TargetPageType = typeof(SettingsPage),
-            TargetPageTag = "程序设置"
+            TargetPageType = typeof(SettingsPage)
         }
     ];
 }

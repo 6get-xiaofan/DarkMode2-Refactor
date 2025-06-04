@@ -5,10 +5,10 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:local="clr-namespace:DarkMode.Ui.Views.Windows"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-                 xmlns:controls="clr-namespace:Wpf.Ui.Controls"
-                 xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
                  xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
                  mc:Ignorable="d"
+                 ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+                 ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  Title="{i18N:StringLocalizer 'SettingsWindow.TitleBar.Title'}" 
                  d:DataContext="{d:DesignInstance local:SettingsWindow, IsDesignTimeCreatable=False}"
                  ExtendsContentIntoTitleBar="True"
@@ -23,7 +23,7 @@
         <ui:NavigationView
             x:Name="NavigationView"
             PaneDisplayMode="LeftFluent"
-            Padding="10,0,10,0"
+            Padding="34,0,34,0"
             EnableDebugMessages="True"
             FrameMargin="0"
             IsBackButtonVisible="Visible"
@@ -33,7 +33,7 @@
             MenuItemsSource="{Binding ViewModel.MenuItems, Mode=OneWay}"
             FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}">
             <ui:NavigationView.Header>
-                <StackPanel Margin="10,10,10,20">
+                <StackPanel Margin="34,30,34,30">
                     <ui:BreadcrumbBar x:Name="BreadcrumbBar">
                         <ui:BreadcrumbBar.ItemTemplate>
                             <DataTemplate>

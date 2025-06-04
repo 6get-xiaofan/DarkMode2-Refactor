@@ -8,7 +8,6 @@
              Startup="App_OnStartup">
     <Application.Resources>
          <ResourceDictionary>
-             <FontFamily x:Key="Segoe">/DarkMode.Ui;Component/Assets/Fonts/#Segoe Fluent Icons</FontFamily>
              <ResourceDictionary.MergedDictionaries>
                  <ui:ThemesDictionary Theme="Light" />
                  <ui:ControlsDictionary />

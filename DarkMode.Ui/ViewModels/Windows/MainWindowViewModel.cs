@@ -1,4 +1,5 @@
 using DarkMode.Ui.Services;
+using DarkMode.Ui.Views.Pages;
 using DarkMode.Ui.Views.Windows;
 
 namespace DarkMode.Ui.ViewModels.Windows;
@@ -8,7 +9,7 @@ public partial class MainWindowViewModel(WindowsProviderService windowsProviderS
     [RelayCommand]
     public void OpenSettingsWindow()
     {
-        windowsProviderService.Show<SettingsWindow>();
+        windowsProviderService.Show<SettingsWindow>(typeof(SetTimePage));
     }
 
     [RelayCommand]

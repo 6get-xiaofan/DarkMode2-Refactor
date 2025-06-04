@@ -11,4 +11,11 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Enums\" />
+      <Folder Include="Events\" />
+      <Folder Include="Modules\Logging\" />
+      <Folder Include="Utils\" />
+    </ItemGroup>
+
 </Project>

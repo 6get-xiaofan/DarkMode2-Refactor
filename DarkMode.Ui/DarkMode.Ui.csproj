@@ -56,6 +56,12 @@
       <None Remove="Assets\Fonts\Segoe Fluent Icons.ttf" />
       <None Remove="Assets\Fonts\FluentSystemIcons-Regular.ttf" />
       <Resource Include="Assets\Fonts\FluentSystemIcons-Regular.ttf" />
+      <None Remove="Assets\Fonts\iconfont.ttf" />
+      <Resource Include="Assets\Fonts\iconfont.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\Images\" />
     </ItemGroup>
 
 </Project>

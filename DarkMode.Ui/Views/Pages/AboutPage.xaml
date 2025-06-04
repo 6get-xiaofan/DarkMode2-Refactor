@@ -7,11 +7,518 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
       mc:Ignorable="d"
-      Title="AboutPage" Height="450" Width="800">
-    <VirtualizingStackPanel
-        x:Name="RootPanel"
-        IsVirtualizing="True"
-        VirtualizationMode="Recycling">
-        <ui:TextBlock FontTypography="Body" Text="关于页" />
-    </VirtualizingStackPanel>
+      d:DesignHeight="450" d:DesignWidth="800"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Title="AboutPage">
+    <StackPanel x:Name="RootPanel">
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon Info24}"
+            IsEnabled="True"
+            IsExpanded="True" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="DarkMode 信息" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="包含版本信息等内容" />
+                    </StackPanel>
+                    <ui:ProgressRing 
+                        x:Name="ProgressRing"
+                        Height="20px"
+                        Width="20px"
+                        Grid.Column="0"
+                        IsIndeterminate="True"
+                        Progress="80"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,16,0" Visibility="Hidden"
+                        />
+                    <ui:Button
+                        x:Name="checkUpdateBtn"
+                        Grid.Column="1"
+                        Margin="0,0,16,0"
+                        Padding="30,6"
+                        VerticalAlignment="Center"
+                        Appearance="Secondary"
+                        Content="检查更新" />
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="147*" />
+                    <ColumnDefinition Width="800*" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="渠道"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Text="版本"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Text="开发者"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Text="版权"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    />
+                <TextBlock
+                    x:Name="Channel"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    FontSize="13"
+                    />
+                <TextBlock
+                    x:Name="Version"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    FontSize="13"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Text="Lunova Studio - Gabriel Ryder"
+                    FontSize="13"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Text="©2022-2023 Lunova-Studio. All Rights Reserved."
+                    FontSize="13"
+                    />
+            </Grid>
+        </ui:CardExpander>
+
+        <ui:CardAction
+                Margin="0,8,0,0"
+                Icon="{ui:SymbolIcon Send24}"
+                Tag="snackbar">
+            <StackPanel>
+                <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="DarkMode 更新渠道" />
+                <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="获取 DarkMode 其他渠道版本" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <ui:CardAction
+                Margin="0,8,0,0"
+                Icon="{ui:SymbolIcon CommentMultiple24}"
+                Tag="dialog">
+            <StackPanel>
+                <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                        Text="帮助社区" />
+                <TextBlock
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="点击进入 DarkMode 社区获取帮助" />
+            </StackPanel>
+        </ui:CardAction>
+
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon Info24}"
+            IsEnabled="True"
+            IsExpanded="False" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="隐私政策" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="DarkMode 对于一些行为的说明" />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    TextWrapping="WrapWithOverflow"
+                    Text="非常感谢您使用DarkMode。我们非常重视用户隐私和信息安全问题。
+
+为了更好地保护您的个人信息，我们编写了下面的隐私政策：
+1. 本软件承诺严格遵守法律法规和用户隐私保护原则，不会通过网络泄露用户隐私数据。
+2. 本软件拥有管理员权限，但不会滥用此权限恶意破坏用户数据。
+3. 本软件的日出日落模式等相关功能需要联网进行定位。使用这些功能前请确保您已同意并授权本软件获得您的定位信息。
+4. 本软件联网还用来向开发者汇报版本号等信息用于数据统计（如用户数量、各渠道占比等）。我们承诺不会以任何形式泄露用户的个人信息。
+5. 本软件会收集必要的用户信息，例如设备信息、网络信息、错误日志等，以便改善软件性能和用户体验。我们承诺不会将这些信息用于非法用途或泄露给第三方。
+6. 在特定情况下，为了保护用户权益和遵守法律法规，本软件有可能会披露用户的信息。例如，当政府机关或司法机构正式要求时，或者为了保护本软件、其他用户或社会公共利益时。
+7. 用户有权随时联系开发者删除其个人信息。如果您对隐私政策有任何疑问、申诉或投诉，可以通过我们提供的联系方式与开发者取得联系。我们将竭尽所能为您解决问题，保护您的个人信息安全
+
+请您仔细阅读并理解上述隐私政策，遵循我们对用户隐私的承诺。如果您不同意本隐私政策的任何内容，您可以选择停止使用本软件。如果您继续使用本软件，则视为您已经理解并同意上述条款。"
+                    FontSize="13"
+                    Margin="0,0,0,10" LineStackingStrategy="MaxHeight" FontStretch="Normal"
+                    />
+
+            </Grid>
+        </ui:CardExpander>
+
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon People24}"
+            IsEnabled="True"
+            IsExpanded="False" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="贡献者" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="参与了 DarkMode 代码贡献的 GitHub 用户" />
+                    </StackPanel>
+
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="XiaoFans"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    />
+
+            </Grid>
+        </ui:CardExpander>
+
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon EmojiSparkle24}"
+            IsEnabled="True"
+            IsExpanded="False" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="鸣谢" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="为 DarkMode 发展作出贡献，值得展示的用户或团体" />
+                    </StackPanel>
+
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="doudou5776"
+                    FontSize="13"
+                    Margin="0,0,0,10"
+                    />
+
+            </Grid>
+        </ui:CardExpander>
+
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:SymbolIcon ContactCardRibbon24}"
+            IsEnabled="True"
+            IsExpanded="False" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="开放源代码许可" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="DarkMode 使用的第三方开源库" />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+            <Grid Width="Auto" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="名称"
+                    FontSize="13"
+                    Margin="0,0,0,10" FontWeight="Bold" HorizontalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Text="作者"
+                    FontSize="13"
+                    Margin="0,0,0,10" FontWeight="Bold" HorizontalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Text="版权"
+                    FontSize="13"
+                    Margin="0,0,0,10" FontWeight="Bold" HorizontalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="3"
+                    Grid.Row="0"
+                    Text="许可"
+                    FontSize="13" FontWeight="Bold" HorizontalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Text="NHotkey.Wpf"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Text="Thomas Levesque"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Text="Copyright © 2020&#x000A;Thomas Levesque&#x000A;Licensed under the&#x000A;Apache-2.0 License."
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <ui:HyperlinkButton
+                    Margin="0,0,0,0"
+                    Content="Apache-2.0"
+                    Grid.Column="3"
+                    Grid.Row="1"
+                    Icon="Link48"
+                    NavigateUri="https://licenses.nuget.org/Apache-2.0" HorizontalAlignment="Center" />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Text="WPF-UI"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Text="lepo.co"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    Text="Copyright © 2022&#x000A;lepo.co&#x000A;Licensed under the&#x000A;MIT License."
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <ui:HyperlinkButton
+                    Margin="0,0,0,0"
+                    Content="MIT"
+                    Grid.Column="3"
+                    Grid.Row="2"
+                    Icon="Link48"
+                    NavigateUri="https://licenses.nuget.org/MPL-2.0" HorizontalAlignment="Center" />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Text="LibreHardwareMonitorLib"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Text="LibreHardwareMonitorLib"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="2"
+                    Grid.Row="3"
+                    Text="Copyright © 2022&#x000A;LibreHardwareMonitorLib&#x000A;Licensed under the&#x000A;MPL-2.0 License."
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <ui:HyperlinkButton
+                    Margin="0,0,0,0"
+                    Content="MPL-2.0"
+                    Grid.Column="3"
+                    Grid.Row="3"
+                    Icon="Link48"
+                    NavigateUri="https://licenses.nuget.org/MPL-2.0" HorizontalAlignment="Center" />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Text="Log4net"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="4"
+                    Text="Apache"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="2"
+                    Grid.Row="4"
+                    Text="Copyright © 2022&#x000A;Apache&#x000A;Licensed under the&#x000A;Apache-2.0 License."
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <ui:HyperlinkButton
+                    Margin="0,0,0,0"
+                    Content="Apache-2.0"
+                    Grid.Column="3"
+                    Grid.Row="4"
+                    Icon="Link48"
+                    NavigateUri="https://licenses.nuget.org/Apache-2.0" HorizontalAlignment="Center" />
+                <TextBlock
+                    Grid.Column="0"
+                    Grid.Row="5"
+                    Text="Newtonsoft.Json"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Text="James Newton-King"
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <TextBlock
+                    Grid.Column="2"
+                    Grid.Row="5"
+                    Text="Copyright © 2021&#x000A;James Newton-King&#x000A;Licensed under the&#x000A;MIT License."
+                    FontSize="13"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    />
+                <ui:HyperlinkButton
+                    Margin="0,0,0,0"
+                    Content="MIT"
+                    Grid.Column="3"
+                    Grid.Row="5"
+                    Icon="Link48"
+                    NavigateUri="https://licenses.nuget.org/MIT" HorizontalAlignment="Center" />
+            </Grid>
+        </ui:CardExpander>
+
+        <ui:HyperlinkButton Margin="0,10,0,0" NavigateUri="https://github.com/Melon-Studio/DarkMode2" Icon="Link48" Content="DarkMode 的 Github 主页"/>
+    </StackPanel>
 </Page>
