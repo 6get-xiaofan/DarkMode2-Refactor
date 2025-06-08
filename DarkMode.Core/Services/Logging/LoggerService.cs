@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using DarkMode.Core.Constants;
 using DarkMode.Core.Enums;
 using DarkMode.Core.Interfaces.Logging;
@@ -8,45 +9,57 @@ namespace DarkMode.Core.Services.Logging;
 
 public class LoggerService : ILoggerService
 {
+    private readonly string _module;
+    private readonly Type _sourceType;
     private LogLevel _currentLogLevel = LogLevel.Info;
-    private readonly object _fileLock = new object();
+    private static readonly object FileLock = new object();
     private DateTime _lastCleanupDate = DateTime.MinValue;
     
+    public LoggerService(string module, Type sourceType)
+    {
+        _module = module;
+        _sourceType = sourceType;
+    }
+    
     public void SetLogLevel(LogLevel level) => _currentLogLevel = level;
+    
+    public void Debug(string message, [CallerMemberName] string method = "") => 
+        Log(LogLevel.Debug, message, method);
 
-    public void Debug(string module, string @namespace, string className, string method, string message) => 
-        Log(LogLevel.Debug, module, @namespace, className, method, message);
+    public void Info(string message, [CallerMemberName] string method = "") =>
+        Log(LogLevel.Info, message, method);
+    
+    public void Warn(string message, [CallerMemberName] string method = "") =>
+        Log(LogLevel.Warn, message, method);
+    
+    public void Error(string message, [CallerMemberName] string method = "") =>
+        Log(LogLevel.Error, message, method);
 
-    public void Info(string module, string @namespace, string className, string method, string message) => 
-        Log(LogLevel.Info, module, @namespace, className, method, message);
-
-    public void Warn(string module, string @namespace, string className, string method, string message) => 
-        Log(LogLevel.Warn, module, @namespace, className, method, message);
-
-    public void Error(string module, string @namespace, string className, string method, string message) => 
-        Log(LogLevel.Error, module, @namespace, className, method, message);
-
-    private void Log(LogLevel level, string module, string @namespace, string className, string method, string message)
+    private void Log(LogLevel level, string message, string method)
     {
         if (level < _currentLogLevel) return;
 
-        lock (_fileLock)
+        // 自动获取命名空间和类名
+        string namespaceName = _sourceType.Namespace;
+        string className = _sourceType.Name;
+
+        lock (FileLock)
         {
             Directory.CreateDirectory(PathConstants.LogDirectory);
-
             if (DateTime.Now.Date > _lastCleanupDate)
             {
                 CleanOldLogs();
                 _lastCleanupDate = DateTime.Now.Date;
             }
-            
-            var logLine = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] " +
-                          $"{level} - " +
-                          $"{module} - " +
-                          $"{@namespace} - " +
-                          $"{className}.cs - " +
-                          $"{method}: " +
-                          $"{message}";
+
+            var logLine = 
+                $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] " +
+                $"{level} - " +
+                $"{_module} - " +
+                $"{namespaceName} - " +
+                $"{className}.cs - " +
+                $"{method}: " +
+                $"{message}";
             
             File.AppendAllText(GetLogFilePath(), logLine + Environment.NewLine);
         }

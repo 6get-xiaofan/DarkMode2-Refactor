@@ -1,4 +1,6 @@
-﻿using DarkMode.Core.Interfaces.Logging;
+﻿using DarkMode.Core.Interfaces.Hardware;
+using DarkMode.Core.Interfaces.Logging;
+using DarkMode.Core.Services.Hardware;
 using DarkMode.Core.Services.Logging;
 using DarkMode.Ui.Services;
 using DarkMode.Ui.Services.Contracts;
@@ -67,13 +69,22 @@ public partial class App
             });
             
             // Logging
-            _ = services.AddSingleton<ILoggerService, LoggerService>();
+            _ = services.AddSingleton<ILoggerService>(provider =>
+            {
+                var module = "Ui";
+                var sourceType = typeof(App);
+                return new LoggerService(module, sourceType);
+                
+            });
+            
+            // Other
+            _ = services.AddSingleton<IHardwareService, HardwareService>();
         }).Build();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         _host.Start();
         var logger = _host.Services.GetRequiredService<ILoggerService>();
-        logger.Info("UI", "DarkMode.Ui", nameof(App), nameof(App_OnStartup), "DarkMode starting...");
+        logger.Info("DarkMode starting...");
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
@@ -81,7 +92,7 @@ public partial class App
         var logger = _host.Services.GetRequiredService<ILoggerService>();
 
         _host.StopAsync().Wait();
-        logger.Info("UI", "DarkMode.Ui", nameof(App), nameof(App_OnStartup), "DarkMode exiting...");
+        logger.Info("DarkMode exiting...");
         
         _host.Dispose();
     }
@@ -89,8 +100,8 @@ public partial class App
     private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         var logger = _host.Services.GetRequiredService<ILoggerService>();
-        logger.Error("UI", "DarkMode.Ui", nameof(App), nameof(App_OnDispatcherUnhandledException), $"Unhandled exception: {e.Exception}");
+        logger.Error($"Unhandled exception: {e.Exception}");
         
-        e.Handled = true;
+        // e.Handled = true;
     }
 }
