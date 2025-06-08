@@ -17,7 +17,6 @@
 
     <ItemGroup>
       <Folder Include="Events\" />
-      <Folder Include="Infrastructure\" />
       <Folder Include="Utils\" />
     </ItemGroup>
 
