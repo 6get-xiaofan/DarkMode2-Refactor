@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0-windows</TargetFramework>
+        <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
@@ -12,6 +12,7 @@
         <PublishTrimmed>false</PublishTrimmed>
         <!-- 调试环境保留符号 -->
         <StackTraceSupport>true</StackTraceSupport>
+        <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <ItemGroup>
