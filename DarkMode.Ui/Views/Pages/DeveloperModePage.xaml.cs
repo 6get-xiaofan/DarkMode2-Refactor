@@ -12,5 +12,7 @@ public partial class DeveloperModePage : INavigableView<DeveloperModePageViewMod
         DataContext = this;
         
         InitializeComponent();
+        
+        Unloaded += (s, e) => viewModel.Dispose();
     }
 }

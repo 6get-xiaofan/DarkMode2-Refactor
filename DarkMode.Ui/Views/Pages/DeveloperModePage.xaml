@@ -102,6 +102,8 @@
                     Command="{Binding ViewModel.ShowDialogCommand}"
                     CommandParameter="{StaticResource DialogContent}"
                     Content="Show" />
+                
+                <ui:TextBlock Text="{Binding ViewModel.GpuUsage, StringFormat='GPU: {0}%'}"></ui:TextBlock>
             </StackPanel>
         </StackPanel>
     </StackPanel>
