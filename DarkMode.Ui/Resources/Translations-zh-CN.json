@@ -44,6 +44,10 @@
     {
       "name": "SettingsWindow.NavigationItem7",
       "value": "设置"
+    },
+    {
+      "name": "App.ExceptionTitle",
+      "value": "发生异常，请点击按钮进行反馈"
     }
   ]
 }

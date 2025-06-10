@@ -116,4 +116,10 @@ public partial class DeveloperModePageViewModel : ViewModel
 
     // 清理资源
     public void Dispose() => timer?.Stop();
+
+    [RelayCommand]
+    private async Task TestException()
+    {
+        throw new NotImplementedException();
+    }
 }

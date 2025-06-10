@@ -1,5 +1,4 @@
 ﻿using DarkMode.Core.Interfaces.Hardware;
-using DarkMode.Core.Interfaces.Logging;
 using DarkMode.Core.Services.Hardware;
 using DarkMode.Core.Services.Logging;
 using DarkMode.Ui.Services;
@@ -10,8 +9,10 @@ using DarkMode.Ui.Views.Pages;
 using DarkMode.Ui.Views.Windows;
 using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Json;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
+using Wpf.Ui.Extensions;
 
 namespace DarkMode.Ui;
 
@@ -69,13 +70,8 @@ public partial class App
             });
             
             // Logging
-            _ = services.AddSingleton<ILoggerService>(provider =>
-            {
-                var module = "Ui";
-                var sourceType = typeof(App);
-                return new LoggerService(module, sourceType);
-                
-            });
+            var loggerService = LoggerService.CreateLogger();
+            _ = services.AddSingleton<ILogger>(loggerService);
             
             // Other
             _ = services.AddSingleton<IHardwareService, HardwareService>();
@@ -83,25 +79,35 @@ public partial class App
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         _host.Start();
-        var logger = _host.Services.GetRequiredService<ILoggerService>();
-        logger.Info("DarkMode starting...");
+        var logger = _host.Services.GetRequiredService<ILogger>();
+        logger.Information("DarkMode starting...");
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
     {
-        var logger = _host.Services.GetRequiredService<ILoggerService>();
+        var logger = _host.Services.GetRequiredService<ILogger>();
 
         _host.StopAsync().Wait();
-        logger.Info("DarkMode exiting...");
+        logger.Information("DarkMode exiting...");
         
         _host.Dispose();
     }
 
     private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        var logger = _host.Services.GetRequiredService<ILoggerService>();
-        logger.Error($"Unhandled exception: {e.Exception}");
+        var logger = _host.Services.GetRequiredService<ILogger>();
+        logger.Error("Unhandled exception: {Message}", e.Exception.Message);
         
-        // e.Handled = true;
+        var dialog = _host.Services.GetRequiredService<IContentDialogService>();
+        dialog.ShowSimpleDialogAsync(
+            new SimpleContentDialogCreateOptions()
+            {
+                Title = "Unhandled exception",
+                Content = e.Exception,
+                PrimaryButtonText = "Feedback",
+                CloseButtonText = "Cancel"
+            }
+        );
+        e.Handled = true;
     }
 }

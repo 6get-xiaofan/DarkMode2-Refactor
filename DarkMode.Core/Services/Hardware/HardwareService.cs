@@ -1,13 +1,14 @@
 using DarkMode.Core.Interfaces.Hardware;
 using LibreHardwareMonitor.Hardware;
 using Windows.Devices.Sensors;
-using DarkMode.Core.Interfaces.Logging;
+using DarkMode.Core.Services.Logging;
+using Serilog;
 
 namespace DarkMode.Core.Services.Hardware;
 
 public class HardwareService : IHardwareService, IDisposable
 {
-    private readonly ILoggerService _logger;
+    private readonly ILogger _logger = LoggerService.CreateLogger();
     
     private Computer _computer;
     private bool _isDisposed;

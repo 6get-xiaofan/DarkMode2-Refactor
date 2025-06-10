@@ -1,3 +1,5 @@
+using DarkMode.Core.Enums;
+
 namespace DarkMode.Core.Models;
 
 public class AppSettings
@@ -49,4 +51,15 @@ public class AppSettings
         get;
         set;
     } = false;
+
+    public LogLevel LogLevel
+    {
+        get;
+        set;
+    } =
+#if DEBUG
+        LogLevel.Debug;
+#else
+        LogLevel.Info;
+#endif
 }

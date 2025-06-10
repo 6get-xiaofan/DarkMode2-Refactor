@@ -1,12 +1,15 @@
 using System.IO;
 using DarkMode.Core.Interfaces.Config;
-using DarkMode.Core.Interfaces.Logging;
+using DarkMode.Core.Services.Logging;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace DarkMode.Core.Services.Config;
 
-public class ConfigService(ILoggerService _logger) : IConfigService
+public class ConfigService : IConfigService
 {
+    private readonly ILogger _logger = LoggerService.CreateLogger();
+
     public void InitializeConfig<T>(string configPath, T defaultValue) where T : new()
         {
             try
@@ -15,7 +18,7 @@ public class ConfigService(ILoggerService _logger) : IConfigService
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath)!);
                     File.WriteAllText(configPath, JsonConvert.SerializeObject(defaultValue, Formatting.Indented));
-                    _logger.Info($"Created new config: {Path.GetFileName(configPath)}");
+                    _logger.Information($"Created new config: {Path.GetFileName(configPath)}");
                 }
             }
             catch (Exception ex)
@@ -73,7 +76,7 @@ public class ConfigService(ILoggerService _logger) : IConfigService
                 if (File.Exists(configPath))
                 {
                     File.Delete(configPath);
-                    _logger.Info($"Deleted config: {Path.GetFileName(configPath)}");
+                    _logger.Information($"Deleted config: {Path.GetFileName(configPath)}");
                 }
             }
             catch (Exception ex)
