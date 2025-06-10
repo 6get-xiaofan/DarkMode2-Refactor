@@ -1,12 +1,13 @@
 using System.IO;
 using DarkMode.Core.Interfaces.Config;
-using DarkMode.Core.Interfaces.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace DarkMode.Core.Services.Config;
 
-public class ConfigService(ILoggerService _logger) : IConfigService
+public class ConfigService() : IConfigService
 {
+    private readonly ILogger<ConfigService> _logger = new LoggerFactory().CreateLogger<ConfigService>();
     public void InitializeConfig<T>(string configPath, T defaultValue) where T : new()
         {
             try
@@ -15,12 +16,12 @@ public class ConfigService(ILoggerService _logger) : IConfigService
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath)!);
                     File.WriteAllText(configPath, JsonConvert.SerializeObject(defaultValue, Formatting.Indented));
-                    _logger.Info($"Created new config: {Path.GetFileName(configPath)}");
+                    _logger.LogInformation($"Created new config: {Path.GetFileName(configPath)}");
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error($"Init failed: {configPath} | {ex.Message}");
+                _logger.LogError($"Init failed: {configPath} | {ex.Message}");
                 throw;
             }
         }
@@ -34,7 +35,7 @@ public class ConfigService(ILoggerService _logger) : IConfigService
             }
             catch (Exception ex)
             {
-                _logger.Error($"Load failed: {configPath} | {ex.Message}");
+                _logger.LogError($"Load failed: {configPath} | {ex.Message}");
                 return new T();
             }
         }
@@ -44,11 +45,11 @@ public class ConfigService(ILoggerService _logger) : IConfigService
             try
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(config, Formatting.Indented));
-                _logger.Debug($"Saved config: {Path.GetFileName(configPath)}");
+                _logger.LogDebug($"Saved config: {Path.GetFileName(configPath)}");
             }
             catch (Exception ex)
             {
-                _logger.Error($"Save failed: {configPath} | {ex.Message}");
+                _logger.LogError($"Save failed: {configPath} | {ex.Message}");
             }
         }
 
@@ -62,7 +63,7 @@ public class ConfigService(ILoggerService _logger) : IConfigService
             }
             catch (Exception ex)
             {
-                _logger.Error($"Update failed: {configPath} | {ex.Message}");
+                _logger.LogError($"Update failed: {configPath} | {ex.Message}");
             }
         }
 
@@ -73,12 +74,12 @@ public class ConfigService(ILoggerService _logger) : IConfigService
                 if (File.Exists(configPath))
                 {
                     File.Delete(configPath);
-                    _logger.Info($"Deleted config: {Path.GetFileName(configPath)}");
+                    _logger.LogInformation($"Deleted config: {Path.GetFileName(configPath)}");
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error($"Delete failed: {configPath} | {ex.Message}");
+                _logger.LogError($"Delete failed: {configPath} | {ex.Message}");
             }
         }
 }

@@ -1,5 +1,8 @@
-﻿using DarkMode.Core.Interfaces.Hardware;
-using DarkMode.Core.Interfaces.Logging;
+﻿using DarkMode.Core.Constants;
+using DarkMode.Core.Interfaces.Config;
+using DarkMode.Core.Interfaces.Hardware;
+using DarkMode.Core.Models;
+using DarkMode.Core.Services.Config;
 using DarkMode.Core.Services.Hardware;
 using DarkMode.Core.Services.Logging;
 using DarkMode.Ui.Services;
@@ -10,8 +13,12 @@ using DarkMode.Ui.Views.Pages;
 using DarkMode.Ui.Views.Windows;
 using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Json;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
+using Wpf.Ui.Extensions;
+using ILogger = Serilog.ILogger;
 
 namespace DarkMode.Ui;
 
@@ -22,6 +29,13 @@ public partial class App
 {
     private static readonly IHost _host = Host
         .CreateDefaultBuilder()
+        .ConfigureLogging(c =>
+        {
+            c.ClearProviders();
+            // Logging
+            var loggerService = LoggerService.CreateLogger();
+            c.AddSerilog(loggerService);
+        })
         .ConfigureAppConfiguration(c =>
         {
             _ = c.SetBasePath(AppContext.BaseDirectory);
@@ -68,40 +82,58 @@ public partial class App
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-en-US.json", new CultureInfo("en-US"));
             });
             
-            // Logging
-            _ = services.AddSingleton<ILoggerService>(provider =>
-            {
-                var module = "Ui";
-                var sourceType = typeof(App);
-                return new LoggerService(module, sourceType);
-                
-            });
-            
             // Other
             _ = services.AddSingleton<IHardwareService, HardwareService>();
+            _ = services.AddSingleton<IConfigService, ConfigService>();
         }).Build();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         _host.Start();
-        var logger = _host.Services.GetRequiredService<ILoggerService>();
-        logger.Info("DarkMode starting...");
+        
+        var logger = _host.Services.GetRequiredService<ILogger<Application>>();
+        logger.LogInformation("DarkMode starting...");
+        
+        // Init App
+        var config = _host.Services.GetRequiredService<IConfigService>();
+        
+        if (!File.Exists(PathConstants.AppSettingsPath))
+        {
+            config.InitializeConfig(PathConstants.AppSettingsPath, new AppSettings());
+            logger.LogDebug("AppSettings Init Complete!");
+        }
+
+        if (!File.Exists(PathConstants.UserSettingsPath))
+        {
+            config.InitializeConfig(PathConstants.UserSettingsPath, new UserSettings());
+            logger.LogDebug("UserSettingsPath Init Complete!");
+        }
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
     {
-        var logger = _host.Services.GetRequiredService<ILoggerService>();
+        var logger = _host.Services.GetRequiredService<ILogger<Application>>();
 
         _host.StopAsync().Wait();
-        logger.Info("DarkMode exiting...");
+        logger.LogInformation("DarkMode exiting...");
         
         _host.Dispose();
     }
 
     private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        var logger = _host.Services.GetRequiredService<ILoggerService>();
-        logger.Error($"Unhandled exception: {e.Exception}");
+        var logger = _host.Services.GetRequiredService<ILogger<Application>>();
+        logger.LogError("Unhandled exception: {Message}", e.Exception.Message);
         
-        // e.Handled = true;
+        var dialog = _host.Services.GetRequiredService<IContentDialogService>();
+        dialog.ShowSimpleDialogAsync(
+            new SimpleContentDialogCreateOptions()
+            {
+                Title = "Unhandled exception",
+                Content = e.Exception,
+                PrimaryButtonText = "Feedback",
+                CloseButtonText = "Cancel"
+            }
+        );
+        e.Handled = true;
     }
 }
