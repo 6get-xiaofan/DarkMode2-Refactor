@@ -1,4 +1,5 @@
 using DarkMode.Core.Enums;
+using Serilog.Events;
 
 namespace DarkMode.Core.Models;
 
@@ -52,14 +53,9 @@ public class AppSettings
         set;
     } = false;
 
-    public LogLevel LogLevel
+    public LogEventLevel LogLevel
     {
         get;
         set;
-    } =
-#if DEBUG
-        LogLevel.Debug;
-#else
-        LogLevel.Info;
-#endif
+    } = LogEventLevel.Information;
 }
