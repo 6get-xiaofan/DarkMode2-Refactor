@@ -1,4 +1,8 @@
-﻿using DarkMode.Core.Interfaces.Hardware;
+﻿using DarkMode.Core.Constants;
+using DarkMode.Core.Interfaces.Config;
+using DarkMode.Core.Interfaces.Hardware;
+using DarkMode.Core.Models;
+using DarkMode.Core.Services.Config;
 using DarkMode.Core.Services.Hardware;
 using DarkMode.Core.Services.Logging;
 using DarkMode.Ui.Services;
@@ -9,10 +13,12 @@ using DarkMode.Ui.Views.Pages;
 using DarkMode.Ui.Views.Windows;
 using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Json;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
 using Wpf.Ui.Extensions;
+using ILogger = Serilog.ILogger;
 
 namespace DarkMode.Ui;
 
@@ -23,6 +29,13 @@ public partial class App
 {
     private static readonly IHost _host = Host
         .CreateDefaultBuilder()
+        .ConfigureLogging(c =>
+        {
+            c.ClearProviders();
+            // Logging
+            var loggerService = LoggerService.CreateLogger();
+            c.AddSerilog(loggerService);
+        })
         .ConfigureAppConfiguration(c =>
         {
             _ = c.SetBasePath(AppContext.BaseDirectory);
@@ -69,34 +82,47 @@ public partial class App
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-en-US.json", new CultureInfo("en-US"));
             });
             
-            // Logging
-            var loggerService = LoggerService.CreateLogger();
-            _ = services.AddSingleton<ILogger>(loggerService);
-            
             // Other
             _ = services.AddSingleton<IHardwareService, HardwareService>();
+            _ = services.AddSingleton<IConfigService, ConfigService>();
         }).Build();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
         _host.Start();
-        var logger = _host.Services.GetRequiredService<ILogger>();
-        logger.Information("DarkMode starting...");
+        
+        var logger = _host.Services.GetRequiredService<ILogger<Application>>();
+        logger.LogInformation("DarkMode starting...");
+        
+        // Init App
+        var config = _host.Services.GetRequiredService<IConfigService>();
+        
+        if (!File.Exists(PathConstants.AppSettingsPath))
+        {
+            config.InitializeConfig(PathConstants.AppSettingsPath, new AppSettings());
+            logger.LogDebug("AppSettings Init Complete!");
+        }
+
+        if (!File.Exists(PathConstants.UserSettingsPath))
+        {
+            config.InitializeConfig(PathConstants.UserSettingsPath, new UserSettings());
+            logger.LogDebug("UserSettingsPath Init Complete!");
+        }
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
     {
-        var logger = _host.Services.GetRequiredService<ILogger>();
+        var logger = _host.Services.GetRequiredService<ILogger<Application>>();
 
         _host.StopAsync().Wait();
-        logger.Information("DarkMode exiting...");
+        logger.LogInformation("DarkMode exiting...");
         
         _host.Dispose();
     }
 
     private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        var logger = _host.Services.GetRequiredService<ILogger>();
-        logger.Error("Unhandled exception: {Message}", e.Exception.Message);
+        var logger = _host.Services.GetRequiredService<ILogger<Application>>();
+        logger.LogError("Unhandled exception: {Message}", e.Exception.Message);
         
         var dialog = _host.Services.GetRequiredService<IContentDialogService>();
         dialog.ShowSimpleDialogAsync(

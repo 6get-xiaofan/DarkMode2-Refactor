@@ -1,15 +1,12 @@
 using DarkMode.Core.Interfaces.Hardware;
 using LibreHardwareMonitor.Hardware;
 using Windows.Devices.Sensors;
-using DarkMode.Core.Services.Logging;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace DarkMode.Core.Services.Hardware;
 
-public class HardwareService : IHardwareService, IDisposable
+public class HardwareService(ILogger<HardwareService> _logger) : IHardwareService, IDisposable
 {
-    private readonly ILogger _logger = LoggerService.CreateLogger();
-    
     private Computer _computer;
     private bool _isDisposed;
     
@@ -51,7 +48,9 @@ public class HardwareService : IHardwareService, IDisposable
         // 过滤负值
         maxGpuUsage = Math.Max(0, maxGpuUsage);
         maxGpuUsage = Math.Min(100, maxGpuUsage);
-        _logger.Debug($"Gpu usage: {maxGpuUsage}");
+        
+        _logger.LogDebug($"Gpu usage: {maxGpuUsage}");
+        
         return maxGpuUsage;
     }
 
