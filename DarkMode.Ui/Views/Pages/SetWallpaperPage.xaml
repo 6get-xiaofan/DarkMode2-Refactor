@@ -12,9 +12,6 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Title="SetWallpaperPage">
-    <Page.Resources>
-        <FontFamily x:Key="IconFont">pack://application:,,,/Assets/Fonts/#iconfont</FontFamily>
-    </Page.Resources>
     <StackPanel x:Name="RootPanel">
         <ui:CardExpander
             Margin="0,8,0,0"

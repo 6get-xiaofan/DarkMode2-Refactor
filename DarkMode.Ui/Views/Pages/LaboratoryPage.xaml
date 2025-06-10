@@ -75,5 +75,55 @@
             </Grid>
 
         </ui:CardExpander>
+        <ui:CardExpander
+            Margin="0,8,0,0"
+            HorizontalContentAlignment="Stretch"
+            Icon="{ui:FontIcon FontFamily={StaticResource IconFont}, Glyph='&#xe643;', FontSize=20}"
+            IsEnabled="True"
+            IsExpanded="False" VerticalContentAlignment="Stretch">
+            <ui:CardExpander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="13"
+                            FontWeight="Medium"
+                            Text="浏览器扩展集成" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="向系统上的主流浏览器集成 Dark Reader 扩展，配合 DarkMode 实现网页的深色模式" />
+                    </StackPanel>
+                </Grid>
+            </ui:CardExpander.Header>
+
+           <StackPanel>
+               <ui:InfoBar Title="提示"
+                           Message="如果你的电脑上没有安装相应的浏览器或已安装扩展，则会显示灰色。"
+                           IsOpen="True" 
+                           Margin="0,0,0,10"/>
+               <StackPanel Orientation="Horizontal">
+                   <ui:Button 
+                       Icon="{ui:FontIcon FontFamily={StaticResource IconFont}, Glyph='&#xe60d;', FontSize=20}"
+                       Content="集成到 Edge 浏览器" 
+                       Margin="0,0,10,0"/>
+                   <ui:Button 
+                       Icon="{ui:FontIcon FontFamily={StaticResource IconFont}, Glyph='&#xe656;', FontSize=20}"
+                       Content="集成到 Google Chrome 浏览器" 
+                       Margin="0,0,10,0"/>
+                   <ui:Button 
+                       Icon="{ui:FontIcon FontFamily={StaticResource IconFont}, Glyph='&#xe784;', FontSize=20}"
+                       Content="集成到 FireFox 浏览器" 
+                       Margin="0,0,10,0"/>
+               </StackPanel>
+           </StackPanel>
+        </ui:CardExpander>
+        <ui:HyperlinkButton 
+            HorizontalAlignment="Center"
+            NavigateUri="https://github.com/Lunova-Studio/DarkMode2-Refactor/issues" 
+            Content="你希望获得什么功能？点击这里提交" />
     </StackPanel>
 </Page>
