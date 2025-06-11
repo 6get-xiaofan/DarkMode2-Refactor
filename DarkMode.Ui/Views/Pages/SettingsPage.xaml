@@ -7,13 +7,13 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="850" d:DesignWidth="800"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Title="SettingsPage">
     <StackPanel x:Name="RootPanel">
-        <ui:CardControl Margin="0,8,0,0" Icon="ArrowCounterclockwise24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon ArrowCounterclockwise24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -29,7 +29,7 @@
             <ui:ToggleSwitch x:Name="Autostart" Focusable ="false"/>
         </ui:CardControl>
 
-        <ui:CardControl Margin="0,8,0,0" Icon="CloudArrowUp24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon CloudArrowUp24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -45,7 +45,7 @@
             <ui:ToggleSwitch x:Name="AutoUpdate" Focusable ="false"/>
         </ui:CardControl>
 
-        <ui:CardControl Margin="0,8,0,0" Icon="WeatherMoon24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WeatherMoon24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -61,7 +61,7 @@
             <ui:ToggleSwitch x:Name="AutoUpdateTime" Focusable ="false"/>
         </ui:CardControl>
         
-        <ui:CardControl Margin="0,8,0,0" Icon="Megaphone24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon Megaphone24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -77,7 +77,7 @@
             <ui:ToggleSwitch x:Name="Notification" Focusable ="false"/>
         </ui:CardControl>
 
-        <ui:CardControl Margin="0,8,0,0" Icon="WindowApps24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon WindowApps24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -93,7 +93,7 @@
             <ui:ToggleSwitch x:Name="TrayBar" Focusable ="false"/>
         </ui:CardControl>
 
-        <ui:CardControl Margin="0,8,0,0" Icon="DualScreenUpdate24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon DualScreenUpdate24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -113,7 +113,7 @@
                 SelectedValuePath="Key"/>
         </ui:CardControl>
         
-        <ui:CardControl Margin="0,8,0,0" Icon="Color24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon Color24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -133,7 +133,7 @@
                 SelectedValuePath="Key"/>
         </ui:CardControl>
 
-        <ui:CardControl Margin="0,8,0,0" Icon="LocalLanguage24">
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon LocalLanguage24}">
             <ui:CardControl.Header>
                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                     <TextBlock
@@ -154,7 +154,7 @@
 
         <ui:CardAction
                 Margin="0,8,0,0"
-                Icon="DeveloperBoard24"
+                Icon="{ui:SymbolIcon DeveloperBoard24}"
                 Tag="snackbar"
                 Visibility="Visible">
             <StackPanel>
