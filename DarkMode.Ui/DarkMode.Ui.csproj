@@ -3,8 +3,6 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
-        <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
-        <Platforms>x64;arm64</Platforms>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
@@ -15,10 +13,7 @@
         <!-- 调试环境保留符号 -->
         <StackTraceSupport>true</StackTraceSupport>
         <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Platform)'=='arm64'">
-        <RuntimeIdentifier>win-arm64</RuntimeIdentifier>
+        <Platforms>x64;ARM64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
