@@ -7,9 +7,8 @@ using Newtonsoft.Json;
 
 namespace DarkMode.Core.Services.Config;
 
-public class ConfigService() : IConfigService
+public class ConfigService(ILogger<ConfigService> _logger) : IConfigService
 {
-    private readonly ILogger<ConfigService> _logger = new LoggerFactory().CreateLogger<ConfigService>();
     public void InitializeConfig<T>(string configPath, T defaultValue) where T : new()
         {
             try
@@ -47,7 +46,7 @@ public class ConfigService() : IConfigService
             try
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(config, Formatting.Indented));
-                _logger.LogDebug($"Saved config: {Path.GetFileName(configPath)}");
+                _logger.LogDebug("Saved config: {config}", Path.GetFileName(configPath));
             }
             catch (Exception ex)
             {

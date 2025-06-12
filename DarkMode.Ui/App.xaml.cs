@@ -14,6 +14,7 @@ using DarkMode.Ui.Views.Windows;
 using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Json;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
@@ -79,6 +80,8 @@ public partial class App
             {
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-zh-CN.json", new CultureInfo("zh-CN"));
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-en-US.json", new CultureInfo("en-US"));
+                var culture = new CultureInfo((JsonConvert.DeserializeObject<AppSettings>(File.ReadAllText(PathConstants.AppSettingsPath)).Language));
+                b.SetCulture(culture);
             });
             
             // Other

@@ -1,4 +1,10 @@
+using DarkMode.Core.Constants;
+using DarkMode.Core.Interfaces.Config;
 using DarkMode.Core.Interfaces.Hardware;
+using DarkMode.Core.Models;
+using DarkMode.Core.Services.Config;
+using DarkMode.Ui.Services;
+using Lepo.i18n;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
@@ -12,14 +18,21 @@ public partial class DeveloperModePageViewModel : ViewModel
     private IHardwareService _hardwareService;
     
     private DispatcherTimer timer;
+    
+    private readonly ILocalizationCultureManager _cultureManager;
+    private readonly IConfigService _service;
     public DeveloperModePageViewModel(
         ISnackbarService snackbarService, 
         IContentDialogService contentDialogService, 
-        IHardwareService hardwareService)
+        IHardwareService hardwareService,
+        ILocalizationCultureManager cultureManager,
+        IConfigService service)
     {
         _snackbarService = snackbarService;
         _dialogService = contentDialogService;
         _hardwareService = hardwareService;
+        _cultureManager = cultureManager;
+        _service = service;
         
         InitializeMonitoring();
     }
@@ -121,5 +134,35 @@ public partial class DeveloperModePageViewModel : ViewModel
     private async Task TestException()
     {
         throw new NotImplementedException();
+    }
+
+    [RelayCommand]
+    private void SwitchEnglish()
+    {
+        _cultureManager.SetCulture("en-US");
+        
+        var settings = new AppSettings
+        {
+            Language = "en-US"
+        };
+        _service.SaveConfig(PathConstants.AppSettingsPath, settings);
+        
+        Process.Start(Process.GetCurrentProcess().ProcessName + ".exe");
+        App.Current.Shutdown();
+    }
+    
+    [RelayCommand]
+    private void SwitchChines()
+    {
+        _cultureManager.SetCulture("zh-CN");
+        
+        var settings = new AppSettings
+        {
+            Language = "zh-CN"
+        };
+        
+        _service.SaveConfig(PathConstants.AppSettingsPath, settings);
+        Process.Start(Process.GetCurrentProcess().ProcessName + ".exe");
+        App.Current.Shutdown();
     }
 }
