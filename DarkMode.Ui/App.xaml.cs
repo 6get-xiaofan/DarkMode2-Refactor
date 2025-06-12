@@ -92,6 +92,7 @@ public partial class App
         _ = new Mutex(true, "DarkMode.Ui", out createdNew);
         if (!createdNew) Environment.Exit(0);
         
+        // Start application
         _host.Start();
         
         var logger = _host.Services.GetRequiredService<ILogger<Application>>();
@@ -99,18 +100,9 @@ public partial class App
         
         // Init App
         var config = _host.Services.GetRequiredService<IConfigService>();
-        
-        if (!File.Exists(PathConstants.AppSettingsPath))
-        {
-            config.InitializeConfig(PathConstants.AppSettingsPath, new AppSettings());
-            logger.LogDebug("AppSettings Init Complete!");
-        }
+        config.EnsureValidConfig(PathConstants.AppSettingsPath, new AppSettings());
+        config.EnsureValidConfig(PathConstants.UserSettingsPath, new UserSettings());
 
-        if (!File.Exists(PathConstants.UserSettingsPath))
-        {
-            config.InitializeConfig(PathConstants.UserSettingsPath, new UserSettings());
-            logger.LogDebug("UserSettingsPath Init Complete!");
-        }
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
