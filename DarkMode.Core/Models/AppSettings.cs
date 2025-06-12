@@ -1,61 +1,24 @@
-using DarkMode.Core.Enums;
 using Serilog.Events;
 
 namespace DarkMode.Core.Models;
 
 public class AppSettings
 {
-    public bool AutoStart
-    {
-        get;
-        set;
-    } = false;
+    public bool AutoStart{ get; set; } = false;
 
-    public bool Notifications
-    {
-        get;
-        set;
-    } = true;
+    public bool Notifications { get; set; } = true;
 
-    public bool TrayIcon
-    {
-        get;
-        set;
-    } = true;
+    public bool TrayIcon { get; set; } = true;
 
-    public string UpdateChannel
-    {
-        get;
-        set;
-    } = "stable";
+    public string UpdateChannel { get; set; } = "stable";
 
-    public bool AutoUpdate
-    {
-        get;
-        set;
-    } = false;
+    public bool AutoUpdate { get; set; } = false;
 
-    public string Theme
-    {
-        get;
-        set;
-    } = "system";
+    public string Theme { get; set; } = "system";
 
-    public string Language
-    {
-        get;
-        set;
-    } = "zh-CN";
+    public string Language { get; set; } = "zh-CN";
     
-    public bool DeveloperMode
-    {
-        get;
-        set;
-    } = false;
+    public bool DeveloperMode { get; set; } = false;
 
-    public LogEventLevel LogLevel
-    {
-        get;
-        set;
-    } = LogEventLevel.Information;
+    public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
 }
