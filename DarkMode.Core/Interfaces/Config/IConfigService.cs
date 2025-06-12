@@ -10,4 +10,5 @@ public interface IConfigService
     void SaveConfig<T>(string configPath, T config);
     void UpdateConfig<T>(string configPath, Action<T> updateAction) where T : new();
     void DeleteConfig(string configPath);
+    void EnsureValidConfig<T>(string configPath, T defaultValue) where T : new();
 }
