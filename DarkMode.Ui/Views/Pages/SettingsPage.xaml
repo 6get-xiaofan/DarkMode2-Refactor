@@ -7,6 +7,7 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance local:SettingsPage, IsDesignTimeCreatable=False}"
       d:DesignHeight="850" d:DesignWidth="800"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -151,23 +152,26 @@
                 ItemsSource="{Binding Languages}"
                 Width="180"/>
         </ui:CardControl>
-
-        <ui:CardAction
-                Margin="0,8,0,0"
-                Icon="{ui:SymbolIcon DeveloperBoard24}"
-                Tag="snackbar"
-                Visibility="Visible">
-            <StackPanel>
-                <TextBlock
+        
+        <ui:CardControl Margin="0,8,0,0" Icon="{ui:SymbolIcon DeveloperBoard24}">
+            <ui:CardControl.Header>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock
                         FontSize="13"
                         FontWeight="Medium"
                         Text="开发者模式" />
-                <TextBlock
+                    <TextBlock
                         FontSize="12"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Text="开发者模式，非开发人员慎用" />
-            </StackPanel>
-        </ui:CardAction>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:ToggleSwitch 
+                Focusable ="false" 
+                Checked="{Binding ViewModel.IsDeveloperModeEnabled, Mode=TwoWay}"
+                Command="{Binding ViewModel.SwitchDeveloperModeCommand}"/>
+        </ui:CardControl>
+        
         <ui:HyperlinkButton Margin="0,10,0,0" Icon="{ui:SymbolIcon ArrowCounterclockwise24}" Content="重置用户配置"/>
     </StackPanel>
 </Page>

@@ -103,13 +103,21 @@
                     CommandParameter="{StaticResource DialogContent}"
                     Content="Show dialog" />
             </StackPanel>
-            <StackPanel Margin="0,0,0,20">
+            <StackPanel Margin="0,20,0,20">
                 <ui:TextBlock Text="{Binding ViewModel.GpuUsage, StringFormat='GPU Usage: {0}%'}"></ui:TextBlock>
             </StackPanel>
             <StackPanel Margin="0,0,0,20">
                 <Button
                     Command="{Binding ViewModel.TestExceptionCommand}"
                     Content="Global Exception Handling Test" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <Button
+                    Command="{Binding ViewModel.SwitchEnglishCommand}"
+                    Content="Switch English" />
+                <Button
+                    Command="{Binding ViewModel.SwitchChinesCommand}"
+                    Content="Switch Chinese" />
             </StackPanel>
         </StackPanel>
     </StackPanel>

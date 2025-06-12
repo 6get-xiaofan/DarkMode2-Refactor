@@ -1,3 +1,6 @@
+using DarkMode.Core.Constants;
+using DarkMode.Core.Interfaces.Config;
+using DarkMode.Core.Models;
 using DarkMode.Ui.I18n;
 using DarkMode.Ui.Views.Pages;
 using Microsoft.Extensions.Localization;
@@ -5,7 +8,7 @@ using Wpf.Ui.Controls;
 
 namespace DarkMode.Ui.ViewModels.Windows;
 
-public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewModel
+public partial class SettingsWindowViewModel(IStringLocalizer localizer, IConfigService service) : ViewModel
 {
     
     [ObservableProperty] 
@@ -31,7 +34,8 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
             Content = new TextBlock()
             {
                 Text = localizer["SettingsWindow.NavigationItem2"].Value,
-                FontSize = 11
+                FontSize = 11,
+                TextTrimming=TextTrimming.CharacterEllipsis
             },
             Icon = new FontIcon()
             {
@@ -89,7 +93,8 @@ public partial class SettingsWindowViewModel(IStringLocalizer localizer) : ViewM
                 Glyph = "\uf2f0",
                 FontSize = 26,
             },
-            TargetPageType = typeof(DeveloperModePage)
+            TargetPageType = typeof(DeveloperModePage),
+            Visibility = service.LoadConfig<AppSettings>(PathConstants.AppSettingsPath).DeveloperMode == true ? Visibility.Visible : Visibility.Collapsed
         },
         new NavigationViewItem()
         {
