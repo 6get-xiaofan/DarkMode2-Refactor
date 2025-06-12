@@ -18,7 +18,8 @@
                  MinWidth="980"
                  WindowBackdropType="Mica"
                  WindowCornerPreference="Default"
-                 WindowStartupLocation="CenterScreen">
+                 WindowStartupLocation="CenterScreen"
+                 Loaded="SettingsWindow_OnLoaded">
     <Grid>
         <ui:NavigationView
             x:Name="NavigationView"

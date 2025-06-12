@@ -1,6 +1,7 @@
 using System.Windows;
 using DarkMode.Ui.Services.Contracts;
 using DarkMode.Ui.ViewModels.Windows;
+using DarkMode.Ui.Views.Pages;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -29,5 +30,10 @@ public partial class SettingsWindow : IWindow
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
         navigationService.SetNavigationControl(NavigationView);
         contentDialogService.SetDialogHost(RootContentDialog);
+    }
+
+    private void SettingsWindow_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        NavigationView.Navigate(typeof(SetTimePage));
     }
 }

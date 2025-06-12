@@ -18,7 +18,6 @@ using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
 using Wpf.Ui.Extensions;
-using ILogger = Serilog.ILogger;
 
 namespace DarkMode.Ui;
 
@@ -88,6 +87,12 @@ public partial class App
         }).Build();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
+        // Single instance
+        bool createdNew;
+        _ = new Mutex(true, "DarkMode.Ui", out createdNew);
+        if (!createdNew) Environment.Exit(0);
+        
+        // Start application
         _host.Start();
         
         var logger = _host.Services.GetRequiredService<ILogger<Application>>();
@@ -95,18 +100,9 @@ public partial class App
         
         // Init App
         var config = _host.Services.GetRequiredService<IConfigService>();
-        
-        if (!File.Exists(PathConstants.AppSettingsPath))
-        {
-            config.InitializeConfig(PathConstants.AppSettingsPath, new AppSettings());
-            logger.LogDebug("AppSettings Init Complete!");
-        }
+        config.EnsureValidConfig(PathConstants.AppSettingsPath, new AppSettings());
+        config.EnsureValidConfig(PathConstants.UserSettingsPath, new UserSettings());
 
-        if (!File.Exists(PathConstants.UserSettingsPath))
-        {
-            config.InitializeConfig(PathConstants.UserSettingsPath, new UserSettings());
-            logger.LogDebug("UserSettingsPath Init Complete!");
-        }
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)

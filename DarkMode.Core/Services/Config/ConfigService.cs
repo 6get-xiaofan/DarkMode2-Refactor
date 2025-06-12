@@ -1,5 +1,7 @@
 using System.IO;
 using DarkMode.Core.Interfaces.Config;
+using DarkMode.Core.Models;
+using DarkMode.Core.Utils;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -80,6 +82,48 @@ public class ConfigService() : IConfigService
             catch (Exception ex)
             {
                 _logger.LogError($"Delete failed: {configPath} | {ex.Message}");
+            }
+        }
+        
+        public void EnsureValidConfig<T>(string configPath, T defaultValue) where T : new()
+        {
+            try
+            {
+                T config;
+                bool invalid = false;
+
+                if (!File.Exists(configPath))
+                {
+                    config = defaultValue;
+                    invalid = true;
+                }
+                else
+                {
+                    try
+                    {
+                        var json = File.ReadAllText(configPath);
+                        config = JsonConvert.DeserializeObject<T>(json) ?? defaultValue;
+                    }
+                    catch
+                    {
+                        config = defaultValue;
+                        invalid = true;
+                    }
+                }
+
+                if (config is UserSettings settings && defaultValue is UserSettings defaults)
+                {
+                    UserSettingsFixer.MergeDefaults(settings, defaults);
+                    SaveConfig(configPath, settings);
+                }
+
+                if (invalid)
+                    _logger.LogWarning("Reinitialized invalid config: {config}", Path.GetFileName(configPath));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Ensure config failed: {config} | {message}", configPath, ex.Message);
+                throw;
             }
         }
 }
