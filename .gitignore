@@ -7,3 +7,4 @@ DarkMode.sln.DotSettings.user
 .idea/
 .vs/
 TemplateEngineHost/
+*.cache
