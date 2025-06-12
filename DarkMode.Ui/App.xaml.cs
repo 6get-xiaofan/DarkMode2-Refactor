@@ -18,7 +18,6 @@ using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
 using Wpf.Ui.Extensions;
-using ILogger = Serilog.ILogger;
 
 namespace DarkMode.Ui;
 
@@ -88,6 +87,11 @@ public partial class App
         }).Build();
     private void App_OnStartup(object sender, StartupEventArgs e)
     {
+        // Single instance
+        bool createdNew;
+        _ = new Mutex(true, "DarkMode.Ui", out createdNew);
+        if (!createdNew) Environment.Exit(0);
+        
         _host.Start();
         
         var logger = _host.Services.GetRequiredService<ILogger<Application>>();
