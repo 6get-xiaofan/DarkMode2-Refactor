@@ -11,7 +11,7 @@ namespace DarkMode.Core.Services.Logging;
 
 public class LoggerService
 {
-    private readonly IConfigService _configService = new ConfigService();
+    private readonly IConfigService _configService = new ConfigService(null);
     private const string LogOutputTemplate = "[{Timestamp:yyyy-MM-dd HH:mm:ss}] [{Level}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
     public static ILogger CreateLogger()
     {
