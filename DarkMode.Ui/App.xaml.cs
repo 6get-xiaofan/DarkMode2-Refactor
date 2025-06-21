@@ -77,6 +77,7 @@ public partial class App
             _ = services.AddTransient<SettingsPageViewModel>();
             
             // I18n
+            _ = services.AddSingleton<LocalizationBuilder>();
             _ = services.AddStringLocalizer(b =>
             {
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-zh-CN.json", new CultureInfo("zh-CN"));
