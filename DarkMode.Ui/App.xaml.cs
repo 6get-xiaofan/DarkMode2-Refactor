@@ -11,6 +11,7 @@ using DarkMode.Ui.ViewModels.Pages;
 using DarkMode.Ui.ViewModels.Windows;
 using DarkMode.Ui.Views.Pages;
 using DarkMode.Ui.Views.Windows;
+using Lepo.i18n;
 using Lepo.i18n.DependencyInjection;
 using Lepo.i18n.Json;
 using Microsoft.Extensions.Logging;
@@ -80,8 +81,6 @@ public partial class App
             {
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-zh-CN.json", new CultureInfo("zh-CN"));
                 _ = b.FromJson(Assembly.GetExecutingAssembly(), "Resources.Translations-en-US.json", new CultureInfo("en-US"));
-                var culture = new CultureInfo((JsonConvert.DeserializeObject<AppSettings>(File.ReadAllText(PathConstants.AppSettingsPath)).Language));
-                b.SetCulture(culture);
             });
             
             // Other
@@ -105,7 +104,16 @@ public partial class App
         var config = _host.Services.GetRequiredService<IConfigService>();
         config.EnsureValidConfig(PathConstants.AppSettingsPath, new AppSettings());
         config.EnsureValidConfig(PathConstants.UserSettingsPath, new UserSettings());
-
+        
+        // Set culture after config is ensured
+        var appSettings = config.LoadConfig<AppSettings>(PathConstants.AppSettingsPath);
+        var culture = new CultureInfo(appSettings.Language);
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        
+        // Init localization
+        var localizer = _host.Services.GetRequiredService<LocalizationBuilder>();
+        localizer.SetCulture(culture);
     }
 
     private void App_OnExit(object sender, ExitEventArgs e)
