@@ -4,6 +4,8 @@ namespace DarkMode.Core.Models;
 
 public class AppSettings
 {
+    public bool IsInitialized { get; set; } = false;
+    
     public bool AutoStart{ get; set; } = false;
 
     public bool Notifications { get; set; } = true;

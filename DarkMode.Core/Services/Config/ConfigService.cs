@@ -1,6 +1,7 @@
 using System.IO;
 using DarkMode.Core.Interfaces.Config;
 using DarkMode.Core.Models;
+using DarkMode.Core.Services.Config.ConfigFixer;
 using DarkMode.Core.Utils;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -9,6 +10,12 @@ namespace DarkMode.Core.Services.Config;
 
 public class ConfigService(ILogger<ConfigService> _logger) : IConfigService
 {
+    private readonly Dictionary<Type, object> _fixers = new()
+    {
+        { typeof(UserSettings), new UserSettingsFixer() },
+        { typeof(AppSettings), new AppSettingsFixer() }
+    };
+    
     public void InitializeConfig<T>(string configPath, T defaultValue) where T : new()
         {
             try
@@ -110,14 +117,20 @@ public class ConfigService(ILogger<ConfigService> _logger) : IConfigService
                     }
                 }
 
-                if (config is UserSettings settings && defaultValue is UserSettings defaults)
+                if (_fixers.TryGetValue(typeof(T), out var fixerObj) && fixerObj is IConfigFixer<T> fixer)
                 {
-                    UserSettingsFixer.MergeDefaults(settings, defaults);
-                    SaveConfig(configPath, settings);
+                    fixer.MergeDefaults(config, defaultValue);
                 }
 
                 if (invalid)
+                {
+                    SaveConfig(configPath, config);
                     _logger.LogWarning("Reinitialized invalid config: {config}", Path.GetFileName(configPath));
+                }
+                else
+                {
+                    SaveConfig(configPath, config);
+                }
             }
             catch (Exception ex)
             {
@@ -125,4 +138,5 @@ public class ConfigService(ILogger<ConfigService> _logger) : IConfigService
                 throw;
             }
         }
+
 }

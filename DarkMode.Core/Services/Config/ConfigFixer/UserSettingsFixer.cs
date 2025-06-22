@@ -1,22 +1,20 @@
 using DarkMode.Core.Models;
 
-namespace DarkMode.Core.Utils;
+namespace DarkMode.Core.Services.Config.ConfigFixer;
 
-public class UserSettingsFixer
+public class UserSettingsFixer : SettingsFixer<UserSettings>
 {
-    public static void MergeDefaults(UserSettings current, UserSettings defaults)
+    public override void MergeDefaults(UserSettings current, UserSettings defaults)
     {
         if (current == null || defaults == null) return;
 
         current.ExecutionMode = current.ExecutionMode;
 
-        // 合并 LightConfig
         if (current.LightConfig == null)
             current.LightConfig = defaults.LightConfig;
         else
             MergeLightConfig(current.LightConfig, defaults.LightConfig);
 
-        // 合并 DarkConfig
         if (current.DarkConfig == null)
             current.DarkConfig = defaults.DarkConfig;
         else
@@ -38,7 +36,7 @@ public class UserSettingsFixer
         if (current.GpuUsageStabilizationSeconds <= 0)
             current.GpuUsageStabilizationSeconds = defaults.GpuUsageStabilizationSeconds;
     }
-
+    
     private static void MergeLightConfig(LightConfig current, LightConfig defaults)
     {
         current.Time ??= defaults.Time;
