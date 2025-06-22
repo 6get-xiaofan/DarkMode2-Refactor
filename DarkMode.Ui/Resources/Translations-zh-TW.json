@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "strings": [
+    {
+      "name": "MainWindow.ApplicationName",
+      "value": "DarkMode"
+    },
+    {
+      "name": "MainWindow.Tray.Settings",
+      "value": "设置"
+    },
+    {
+      "name": "MainWindow.Tray.Exit",
+      "value": "退出"
+    },
+    {
+      "name": "SettingsWindow.TitleBar.Title",
+      "value": "DarkMode 设置中心"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem1",
+      "value": "时间"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem2",
+      "value": "壁纸"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem3",
+      "value": "自定义"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem4",
+      "value": "实验室"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem5",
+      "value": "DEV"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem6",
+      "value": "关于"
+    },
+    {
+      "name": "SettingsWindow.NavigationItem7",
+      "value": "设置"
+    },
+    {
+      "name": "App.ExceptionTitle",
+      "value": "发生异常，请点击按钮进行反馈"
+    }
+  ]
+}

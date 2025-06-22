@@ -14,6 +14,7 @@
         <StackTraceSupport>true</StackTraceSupport>
         <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
         <Platforms>x64;ARM64</Platforms>
+        <LangVersion>13</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,6 +44,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Resources\Translations-zh-TW.json" />
       <None Remove="Resources\Translations-en-US.json" />
       <EmbeddedResource Include="Resources\Translations-en-US.json" />
       <None Remove="Resources\Translations-zh-CN.json" />

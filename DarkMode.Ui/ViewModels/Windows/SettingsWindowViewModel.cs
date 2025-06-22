@@ -1,7 +1,6 @@
 using DarkMode.Core.Constants;
 using DarkMode.Core.Interfaces.Config;
 using DarkMode.Core.Models;
-using DarkMode.Ui.I18n;
 using DarkMode.Ui.Views.Pages;
 using Microsoft.Extensions.Localization;
 using Wpf.Ui.Controls;

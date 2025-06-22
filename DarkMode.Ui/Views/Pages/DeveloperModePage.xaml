@@ -6,8 +6,9 @@
       xmlns:local="clr-namespace:DarkMode.Ui.Views.Pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:i18N="http://schemas.lepo.co/i18n/2022/xaml"
+      xmlns:pages="clr-namespace:DarkMode.Ui.ViewModels.Pages"
       mc:Ignorable="d"
-      d:DataContext="{d:DesignInstance local:DeveloperModePage,
+      d:DataContext="{d:DesignInstance pages:DeveloperModePageViewModel,
                                      IsDesignTimeCreatable=False}"
       d:DesignHeight="450" d:DesignWidth="800"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -99,24 +100,24 @@
             </Grid>
             <StackPanel>
                 <Button
-                    Command="{Binding ViewModel.ShowDialogCommand}"
+                    Command="{Binding ShowDialogCommand}"
                     CommandParameter="{StaticResource DialogContent}"
                     Content="Show dialog" />
             </StackPanel>
             <StackPanel Margin="0,20,0,20">
-                <ui:TextBlock Text="{Binding ViewModel.GpuUsage, StringFormat='GPU Usage: {0}%'}"></ui:TextBlock>
+                <ui:TextBlock Text="{Binding GpuUsage, StringFormat='GPU Usage: {0}%'}"></ui:TextBlock>
             </StackPanel>
             <StackPanel Margin="0,0,0,20">
                 <Button
-                    Command="{Binding ViewModel.TestExceptionCommand}"
+                    Command="{Binding TestExceptionCommand}"
                     Content="Global Exception Handling Test" />
             </StackPanel>
             <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
                 <Button
-                    Command="{Binding ViewModel.SwitchEnglishCommand}"
+                    Command="{Binding SwitchEnglishCommand}"
                     Content="Switch English" />
                 <Button
-                    Command="{Binding ViewModel.SwitchChinesCommand}"
+                    Command="{Binding SwitchChinesCommand}"
                     Content="Switch Chinese" />
             </StackPanel>
         </StackPanel>
