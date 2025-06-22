@@ -9,7 +9,7 @@ public partial class SettingsPage : Page
     public SettingsPage(SettingsPageViewModel viewModel)
     {
         ViewModel = viewModel;
-        
+        DataContext = ViewModel;
         InitializeComponent();
     }
 }

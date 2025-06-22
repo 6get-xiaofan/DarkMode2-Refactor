@@ -9,7 +9,7 @@ public partial class DeveloperModePage : INavigableView<DeveloperModePageViewMod
     public DeveloperModePage(DeveloperModePageViewModel viewModel)
     {
         ViewModel = viewModel;
-        DataContext = this;
+        DataContext = ViewModel;
         
         InitializeComponent();
         
