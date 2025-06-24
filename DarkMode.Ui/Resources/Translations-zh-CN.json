@@ -48,6 +48,98 @@
     {
       "name": "App.ExceptionTitle",
       "value": "发生异常，请点击按钮进行反馈"
+    },
+    {
+      "name": "AboutPage.Card1.Title",
+      "value": "关于 DarkMode"
+    },
+    {
+      "name": "AboutPage.Card1.SubTitle",
+      "value": "包含版本信息等内容"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "检查更新"
+    },
+    {
+      "name": "AboutPage.Card1.Content1",
+      "value": "渠道"
+    },
+    {
+      "name": "AboutPage.Card1.Content2",
+      "value": "版本"
+    },
+    {
+      "name": "AboutPage.Card1.Content3",
+      "value": "作者"
+    },
+    {
+      "name": "AboutPage.Card1.Content4",
+      "value": "版权"
+    },
+    {
+      "name": "AboutPage.Card2.Title",
+      "value": "帮助社区"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "点击进入 DarkMode 社区获取帮助"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "用户协议"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "DarkMode 对于用户使用服务的行为规范与权益约定"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "隐私政策"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "DarkMode 关于如何保护用户使用应用时，涉及的个人信息与数据安全"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "贡献者"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "参与了 DarkMode 仓库代码贡献的用户"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "鸣谢"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "为 DarkMode 发展作出贡献，值得展示的用户或团体"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "开放源代码许可"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "DarkMode 使用第三方库的版权与许可声明"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "名称"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "版权"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "许可"
+    },
+    {
+      "name": "AboutPage.Card1.Button",
+      "value": "检查更新"
     }
   ]
 }
